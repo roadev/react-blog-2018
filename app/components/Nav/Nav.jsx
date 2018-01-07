@@ -5,7 +5,7 @@ const Nav = () => (
   <nav>
     <ul>
       <li>
-        <Link to="/">Home</Link>
+        <Link to="/" />
       </li>
       {/* <li>
         <Link to="/another_route">Another Component</Link>
