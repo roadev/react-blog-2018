@@ -1,15 +1,14 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import Button from '@material-ui/core/Button';
 
 const Nav = () => (
   <nav>
     <ul>
       <li>
-        <Link to="/" />
+        <Link to="/">Home</Link>
       </li>
       <li>
-        <Button>I'm a button!!!!</Button>
+        <Link to="/posts">Posts</Link>
       </li>
       {/* <li>
         <Link to="/another_route">Another Component</Link>
