@@ -1,5 +1,4 @@
 const webpack = require('webpack');
-const autoprefixer = require('autoprefixer');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = {
@@ -25,7 +24,7 @@ module.exports = {
   },
 
   resolve: {
-    extensions: ['.jsx', '.scss', '.js'],
+    extensions: ['.jsx', '.js'],
   },
 
   module: {
@@ -51,40 +50,6 @@ module.exports = {
           },
         ],
         exclude: /node_modules/,
-      },
-      {
-        test: /(\.scss|\.css)$/,
-        use: [
-          { loader: 'style-loader' },
-          {
-            loader: 'css-loader',
-            options:
-            {
-              // sourceMap: true,
-              modules: true,
-              importLoaders: 1,
-              localIdentName: '[name]__[local]___[hash:base64:8]',
-            },
-          },
-          {
-            loader: 'postcss-loader',
-            options: {
-              plugins: (loader) => [
-                require('postcss-smart-import'),
-                require('autoprefixer'),
-              ],
-              sourceMap: true
-            }
-          },
-          {
-            loader: 'sass-loader',
-            options:
-            {
-              sourceMap: true,
-              data: `@import "${__dirname}/app/components/theme.scss";`,
-            },
-          },
-        ],
       },
     ],
   },
