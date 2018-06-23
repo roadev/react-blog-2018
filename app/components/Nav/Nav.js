@@ -10,6 +10,9 @@ const Nav = () => (
       <li>
         <Link to="/posts">Posts</Link>
       </li>
+      <li>
+        <Link to="/tags">Tags</Link>
+      </li>
       {/* <li>
         <Link to="/another_route">Another Component</Link>
       </li> */}
