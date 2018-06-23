@@ -1,10 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-const Post = ({ title, body }) => (
+const Post = ({ id, title, body, deletePost }) => (
   <div>
     <h1>{title}</h1>
     <p>{body}</p>
+    <button onClick={() => deletePost(id)}>Delete</button>
   </div>
 );
 

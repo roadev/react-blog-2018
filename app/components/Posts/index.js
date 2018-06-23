@@ -21,7 +21,7 @@ class Posts extends Component {
   }
 
   createPost = async post => {
-    const response = await fetch('http://localhost:3000/posts', {
+    const response = await fetch('https://devhack-blog-api.herokuapp.com/posts', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -32,9 +32,20 @@ class Posts extends Component {
     console.log(responseJson);
   }
 
+  deletePost = async id => {
+    const response = await fetch(`https://devhack-blog-api.herokuapp.com/posts/${id}`, {
+      method: 'DELETE',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    });
+    const responseJson = await response.json();
+    console.log(responseJson);
+  }
+
   render() {
     const posts = this.state.posts.map(post => (
-      <Post key={post._id} title={post.title} body={post.body} />
+      <Post key={post._id} id={post._id} title={post.title} body={post.body} deletePost={this.deletePost} />
     ));
 
     return (
