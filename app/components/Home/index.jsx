@@ -1,11 +1,11 @@
 import React from 'react';
-import Nav from '../Nav/Nav';
+import Header from '../Header';
 
 
 const Home = () =>
   (
     <div>
-      <Nav />
+      <Header />
       <h3>
         This is the home page
       </h3>
