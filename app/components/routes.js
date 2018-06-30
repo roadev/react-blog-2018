@@ -9,7 +9,7 @@ import Posts from './Posts';
 import Tags from './Tags';
 import NotFound from './404';
 
-const App = () => (
+const Routes = () => (
   <Router>
     <Switch>
       <Route path="/" exact component={Home} />
@@ -21,4 +21,4 @@ const App = () => (
   </Router>
 );
 
-export default App;
+export default Routes;
