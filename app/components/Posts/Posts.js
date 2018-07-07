@@ -1,12 +1,14 @@
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
 import PropTypes from 'prop-types';
 import ImmutablePropTypes from 'react-immutable-proptypes';
 import Button from '@material-ui/core/Button';
 import AddIcon from '@material-ui/icons/Add';
+import CircularProgress from '@material-ui/core/CircularProgress';
 import Header from '../Header';
 import Post from './Post';
 import PostForm from './PostForm';
 import Api from '../../services/Api';
+import { PostsContainer, CreateButtonContainer } from './styles';
 
 class Posts extends Component {
 
@@ -57,22 +59,35 @@ class Posts extends Component {
   }
 
   render() {
+    const { postsData } = this.props;
+    console.log('postsLoading', postsData.get('postsLoading'));
+
     return (
       <div>
         <Header />
-        <PostForm
-          createPost={this.createPost}
-          handleClose={this.handleCloseForm}
-          showForm={this.state.showForm}
-        />
-        {this.renderPosts()}
-        <Button
-          onClick={this.handleOpenForm}
-          variant="fab"
-          color="primary"
-        >
-          <AddIcon />
-        </Button>
+        {postsData.get('postsLoading') ? (
+          <CircularProgress />
+        ) : (
+          <Fragment>
+            <PostForm
+              createPost={this.createPost}
+              handleClose={this.handleCloseForm}
+              showForm={this.state.showForm}
+            />
+            <PostsContainer>
+              {this.renderPosts()}
+            </PostsContainer>
+            <CreateButtonContainer>
+              <Button
+                onClick={this.handleOpenForm}
+                variant="fab"
+                color="primary"
+              >
+                <AddIcon />
+              </Button>
+            </CreateButtonContainer>
+          </Fragment>
+        )}
       </div>
     );
   }

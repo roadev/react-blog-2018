@@ -3,6 +3,8 @@ import PropTypes from 'prop-types';
 import { fromJS } from 'immutable';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import Dialog from '@material-ui/core/Dialog';
+import DialogContent from '@material-ui/core/DialogContent';
+import DialogActions from '@material-ui/core/DialogActions';
 import { TitleContainer, BodyContainer, StyledTextField, SaveButton } from './styles';
 
 class PostForm extends Component {
@@ -51,8 +53,8 @@ class PostForm extends Component {
           aria-labelledby="simple-dialog-title"
           open={this.props.showForm}
         >
-          <DialogTitle id="simple-dialog-title">Set backup account</DialogTitle>
-          <div>
+          <DialogTitle id="simple-dialog-title">Create post</DialogTitle>
+          <DialogContent>
             <TitleContainer>
               <StyledTextField
                 label="Title"
@@ -72,8 +74,8 @@ class PostForm extends Component {
                 />
               </BodyContainer>
             ) : null}
-          </div>
-          <div>
+          </DialogContent>
+          <DialogActions>
             <SaveButton
               onClick={this.createPost}
               disabled={this.state.postState.get('body') === ''}
@@ -81,7 +83,7 @@ class PostForm extends Component {
             >
                 Save
             </SaveButton>
-          </div>
+          </DialogActions>
         </Dialog>
       </div>
     );

@@ -9,7 +9,6 @@ class Api {
   }
 
   async getPosts() {
-    console.log('hi');
     try {
       const response = await fetch(`${this.url}/posts`);
       const responseJson = await response.json();
