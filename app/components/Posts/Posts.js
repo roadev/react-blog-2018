@@ -1,5 +1,6 @@
 import React, { Component, Fragment } from 'react';
 import PropTypes from 'prop-types';
+import { List } from 'immutable';
 import ImmutablePropTypes from 'react-immutable-proptypes';
 import Button from '@material-ui/core/Button';
 import AddIcon from '@material-ui/icons/Add';
@@ -12,13 +13,26 @@ import { PostsContainer, CreateButtonContainer } from './styles';
 
 class Posts extends Component {
 
+  static getDerivedStateFromProps(props, state) {
+    const { postsData, getPosts } = props;
+    if (postsData.get('refresh') && !postsData.get('loading')) {
+      getPosts();
+    }
+    if (!props.postsData.get('posts').equals(state.posts)) {
+      return Object.assign({}, { posts: props.postsData.get('posts') });
+    }
+    return null;
+  }
+
   static propTypes = {
     postsData: ImmutablePropTypes.map.isRequired,
+    deletePost: PropTypes.func.isRequired,
     getPosts: PropTypes.func.isRequired,
   }
 
   state = {
     showForm: false,
+    posts: this.props.postsData.get('posts'),
   };
 
   componentDidMount() {
@@ -34,17 +48,17 @@ class Posts extends Component {
     this.setState({ showForm: false }, async () => Api.createPost(post));
   }
 
-  deletePost = async id => Api.deletePost(id);
+  deletePost = id => this.props.deletePost(id);
 
   handleOpenForm = () => this.setState({ showForm: true });
 
   handleCloseForm = () => this.setState({ showForm: false });
 
   renderPosts = () => {
-    const { postsData } = this.props;
-    const posts = postsData.get('posts');
-    console.log(posts);
-    const postsComponent = posts.map(post => (
+    // const { postsData } = this.props;
+    // const posts = postsData.get('posts');
+    // console.log(posts);
+    const postsComponent = this.state.posts.map(post => (
       <Post
         key={post.get('_id')}
         id={post.get('_id')}
@@ -63,7 +77,7 @@ class Posts extends Component {
     console.log('postsLoading', postsData.get('postsLoading'));
 
     return (
-      <div>
+      <Fragment>
         <Header />
         {postsData.get('postsLoading') ? (
           <CircularProgress />
@@ -88,7 +102,7 @@ class Posts extends Component {
             </CreateButtonContainer>
           </Fragment>
         )}
-      </div>
+      </Fragment>
     );
   }
 }

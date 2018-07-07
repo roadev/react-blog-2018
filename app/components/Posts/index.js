@@ -1,6 +1,6 @@
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { getPosts } from '../../redux/actions';
+import { getPosts, deletePost } from '../../redux/actions';
 import Posts from './Posts';
 
 const mapStateToProps = (state) => ({
@@ -10,6 +10,7 @@ const mapStateToProps = (state) => ({
 const mapDispatchToProps = (dispatch) => (
   bindActionCreators({
     getPosts,
+    deletePost,
   }, dispatch)
 );
 
