@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import ImmutablePropTypes from 'react-immutable-proptypes';
 import Button from '@material-ui/core/Button';
 import AddIcon from '@material-ui/icons/Add';
 import Header from '../Header';
@@ -10,7 +11,7 @@ import Api from '../../services/Api';
 class Posts extends Component {
 
   static propTypes = {
-    postsData: PropTypes.object.isRequired,
+    postsData: ImmutablePropTypes.map.isRequired,
     getPosts: PropTypes.func.isRequired,
   }
 
@@ -38,14 +39,15 @@ class Posts extends Component {
   handleCloseForm = () => this.setState({ showForm: false });
 
   renderPosts = () => {
-    const { posts } = this.props.postsData;
+    const { postsData } = this.props;
+    const posts = postsData.get('posts');
     console.log(posts);
     const postsComponent = posts.map(post => (
       <Post
-        key={post._id}
-        id={post._id}
-        title={post.title}
-        body={post.body}
+        key={post.get('_id')}
+        id={post.get('_id')}
+        title={post.get('title')}
+        body={post.get('body')}
         deletePost={this.deletePost}
       />
     ));

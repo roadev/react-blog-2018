@@ -1,8 +1,17 @@
 class Api {
 
-  static getPosts = async () => {
+  constructor() {
+    this.headers = {
+      'Content-Type': 'application/json',
+    };
+
+    this.url = 'https://devhack-blog-api.herokuapp.com';
+  }
+
+  async getPosts() {
+    console.log('hi');
     try {
-      const response = await fetch('https://devhack-blog-api.herokuapp.com/posts');
+      const response = await fetch(`${this.url}/posts`);
       const responseJson = await response.json();
       return responseJson;
     } catch (e) {
@@ -11,9 +20,20 @@ class Api {
     }
   }
 
-  static createPost = async post => {
+  async getTags() {
     try {
-      const response = await fetch('https://devhack-blog-api.herokuapp.com/posts', {
+      const response = await fetch(`${this.url}/tags`);
+      const responseJson = await response.json();
+      return responseJson;
+    } catch (e) {
+      console.log(e);
+      throw new Error(e);
+    }
+  }
+
+  createPost = async post => {
+    try {
+      const response = await fetch(`${this.url}/posts`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -29,8 +49,8 @@ class Api {
     }
   }
 
-  static deletePost = async id => {
-    const response = await fetch(`https://devhack-blog-api.herokuapp.com/posts/${id}`, {
+  async deletePost(id) {
+    const response = await fetch(`${this.url}/posts/${id}`, {
       method: 'DELETE',
       headers: {
         'Content-Type': 'application/json',
@@ -42,4 +62,4 @@ class Api {
   }
 }
 
-export default Api;
+export default new Api();
