@@ -27,9 +27,7 @@ export function getPosts() {
 export function deletePost(id) {
   return async dispatch => {
     // dispatch(togglePostsLoading());
-    const posts = await Api.deletePost(id);
-    console.log(posts);
-    dispatch(receivePosts(posts));
+    await Api.deletePost(id);
     dispatch(refreshPosts());
     // dispatch(togglePostsLoading());
   };

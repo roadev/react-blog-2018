@@ -1,6 +1,5 @@
 import React, { Component, Fragment } from 'react';
 import PropTypes from 'prop-types';
-import { List } from 'immutable';
 import ImmutablePropTypes from 'react-immutable-proptypes';
 import Button from '@material-ui/core/Button';
 import AddIcon from '@material-ui/icons/Add';
@@ -15,7 +14,9 @@ class Posts extends Component {
 
   static getDerivedStateFromProps(props, state) {
     const { postsData, getPosts } = props;
-    if (postsData.get('refresh') && !postsData.get('loading')) {
+    console.log('refresh', postsData.get('refresh'));
+    console.log('loading', postsData.get('postsLoading'));
+    if (postsData.get('refresh') && !postsData.get('postsLoading')) {
       getPosts();
     }
     if (!props.postsData.get('posts').equals(state.posts)) {
