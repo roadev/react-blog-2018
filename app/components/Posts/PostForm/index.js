@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import ImmutablePropTypes from 'react-immutable-proptypes';
 import { fromJS } from 'immutable';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import Dialog from '@material-ui/core/Dialog';
@@ -14,11 +15,26 @@ class PostForm extends Component {
     body: '',
   })
 
+  static getDerivedStateFromProps(props, state) {
+    console.log('state', state.postState);
+    console.log('props', props.postToEdit);
+    const { postToEdit } = props;
+    if (postToEdit && state.postState.filter(p => p !== '').size === 0) {
+      return Object.assign({}, { postState: postToEdit });
+    }
+    return { postState: PostForm.postState() };
+  }
+
   static propTypes = {
     createPost: PropTypes.func.isRequired,
+    postToEdit: ImmutablePropTypes.map,
     handleClose: PropTypes.func.isRequired,
     showForm: PropTypes.bool.isRequired,
   }
+
+  static defaultProps = {
+    postToEdit: undefined,
+  };
 
   state = {
     postState: PostForm.postState(),
@@ -39,13 +55,17 @@ class PostForm extends Component {
     createPost(this.state.postState.set('date', new Date()));
   }
 
+  editPost = () => {
+
+  }
+
 
   validateForm = () => this.state.postState.get('title') !== '';
 
-  handleClose = () => this.props.handleClose(false);
+  handleClose = () => this.setState({ postState: PostForm.postState() }, () => this.props.handleClose(false));
 
   render() {
-    console.log(this.state.postState.get('title'));
+    // console.log('postToEdit', this.props.postToEdit);
     return (
       <div>
         <Dialog
@@ -53,7 +73,7 @@ class PostForm extends Component {
           aria-labelledby="simple-dialog-title"
           open={this.props.showForm}
         >
-          <DialogTitle id="simple-dialog-title">Create post</DialogTitle>
+          <DialogTitle id="simple-dialog-title">{`${this.props.postToEdit ? 'Edit' : 'Create'} post`}</DialogTitle>
           <DialogContent>
             <TitleContainer>
               <StyledTextField
@@ -77,7 +97,7 @@ class PostForm extends Component {
           </DialogContent>
           <DialogActions>
             <SaveButton
-              onClick={this.createPost}
+              onClick={this.props.postToEdit ? this.editPost : this.createPost}
               disabled={this.state.postState.get('body') === ''}
 
             >

@@ -1,5 +1,6 @@
 import React, { Component, Fragment } from 'react';
 import PropTypes from 'prop-types';
+import ImmutablePropTypes from 'react-immutable-proptypes';
 import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
 import DialogTitle from '@material-ui/core/DialogTitle';
@@ -8,6 +9,7 @@ import DialogContent from '@material-ui/core/DialogContent';
 import Dialog from '@material-ui/core/Dialog';
 import Button from '@material-ui/core/Button';
 import DeleteIcon from '@material-ui/icons/Delete';
+import EditIcon from '@material-ui/icons/Edit';
 
 import { CardStyled } from './styles';
 
@@ -18,7 +20,7 @@ class Post extends Component {
   };
 
   render() {
-    const { id, title, body, deletePost } = this.props;
+    const { deletePost, post, showEditForm } = this.props;
 
     return (
       <Fragment>
@@ -32,24 +34,31 @@ class Post extends Component {
           </DialogTitle>
           <DialogContent>
             <p>
-              Are you sure you want to delete the post {id}?
+              Are you sure you want to delete the post {post.get('id')}?
             </p>
           </DialogContent>
           <DialogActions>
             <Button onClick={() => this.setState({ showConfirm: false })} color="primary">
               No
             </Button>
-            <Button onClick={() => deletePost(id)} color="primary" autoFocus>
+            <Button onClick={() => deletePost(post.get('id'))} color="primary" autoFocus>
               Yes
             </Button>
           </DialogActions>
         </Dialog>
         <CardStyled>
           <CardContent>
-            <h1>{title}</h1>
-            <p>{body}</p>
+            <h1>{post.get('title')}</h1>
+            <p>{post.get('body') || 'This post has no content'}</p>
           </CardContent>
           <CardActions>
+            <Button
+              onClick={() => showEditForm(post)}
+              variant="fab"
+              color="primary"
+            >
+              <EditIcon />
+            </Button>
             <Button
               onClick={() => this.setState({ showConfirm: true })}
               variant="fab"
@@ -67,14 +76,9 @@ class Post extends Component {
 
 
 Post.propTypes = {
+  showEditForm: PropTypes.func.isRequired,
   deletePost: PropTypes.func.isRequired,
-  title: PropTypes.string.isRequired,
-  body: PropTypes.string,
-  id: PropTypes.number.isRequired,
-};
-
-Post.defaultProps = {
-  body: 'This post has no content',
+  post: ImmutablePropTypes.map.isRequired,
 };
 
 export default Post;

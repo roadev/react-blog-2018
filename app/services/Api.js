@@ -1,3 +1,10 @@
+import { create } from 'apisauce';
+
+const api = create({
+  baseURL: 'https://devhack-blog-api.herokuapp.com',
+  headers: { 'Content-Type': 'application/json' },
+});
+
 class Api {
 
   constructor() {
@@ -10,9 +17,8 @@ class Api {
 
   async getPosts() {
     try {
-      const response = await fetch(`${this.url}/posts`);
-      const responseJson = await response.json();
-      return responseJson;
+      const response = await api.get('/posts');
+      return response;
     } catch (e) {
       console.log(e);
       throw new Error(e);
@@ -30,18 +36,22 @@ class Api {
     }
   }
 
-  createPost = async post => {
+  async createPost(post) {
     try {
-      const response = await fetch(`${this.url}/posts`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(post.toJS()),
-      });
-      const responseJson = await response.json();
-      console.log(responseJson);
-      return responseJson;
+      const response = await api.post('/posts', post);
+      console.log(response);
+      return response;
+    } catch (e) {
+      console.log(e);
+      throw new Error(e);
+    }
+  }
+
+  async editPost(id, post) {
+    try {
+      const response = await api.patch(`/posts/${id}`, post);
+      console.log(response);
+      return response;
     } catch (e) {
       console.log(e);
       throw new Error(e);

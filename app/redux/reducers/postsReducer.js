@@ -1,4 +1,5 @@
 import { fromJS } from 'immutable';
+import { orderListByDate } from '../../utils/dateUtils';
 
 const initialState = fromJS({
   posts: [],
@@ -10,7 +11,7 @@ function postsReducer(state = initialState, action) {
   console.log('state', state.toJS());
   switch (action.type) {
     case 'RECEIVE_POSTS': {
-      const posts = fromJS(action.posts);
+      const posts = orderListByDate(fromJS(action.posts), 'date', 'DESC');
       console.log(posts);
       return state.withMutations(map => {
         map.set('posts', posts).set('refresh', false);

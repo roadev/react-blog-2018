@@ -18,9 +18,11 @@ export function getPosts() {
   return async dispatch => {
     dispatch(togglePostsLoading());
     const posts = await Api.getPosts();
+    if (posts.ok) {
+      dispatch(receivePosts(posts.data));
+      dispatch(togglePostsLoading());
+    }
     console.log(posts);
-    dispatch(receivePosts(posts));
-    dispatch(togglePostsLoading());
   };
 }
 
@@ -30,5 +32,14 @@ export function deletePost(id) {
     await Api.deletePost(id);
     dispatch(refreshPosts());
     // dispatch(togglePostsLoading());
+  };
+}
+
+export function createPost(post) {
+  return async dispatch => {
+    const postResponse = await Api.createPost(post);
+    if (postResponse.ok) {
+      dispatch(refreshPosts());
+    }
   };
 }

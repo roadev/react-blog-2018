@@ -7,7 +7,6 @@ import CircularProgress from '@material-ui/core/CircularProgress';
 import Header from '../Header';
 import Post from './Post';
 import PostForm from './PostForm';
-import Api from '../../services/Api';
 import { PostsContainer, CreateButtonContainer } from './styles';
 
 class Posts extends Component {
@@ -28,11 +27,13 @@ class Posts extends Component {
   static propTypes = {
     postsData: ImmutablePropTypes.map.isRequired,
     deletePost: PropTypes.func.isRequired,
+    createPost: PropTypes.func.isRequired,
     getPosts: PropTypes.func.isRequired,
   }
 
   state = {
     showForm: false,
+    postToEdit: undefined,
     posts: this.props.postsData.get('posts'),
   };
 
@@ -46,14 +47,17 @@ class Posts extends Component {
   };
 
   createPost = post => {
-    this.setState({ showForm: false }, async () => Api.createPost(post));
+    const { createPost } = this.props;
+    this.setState({ showForm: false }, async () => createPost(post.toJS()));
   }
 
   deletePost = id => this.props.deletePost(id);
 
   handleOpenForm = () => this.setState({ showForm: true });
 
-  handleCloseForm = () => this.setState({ showForm: false });
+  handleCloseForm = () => this.setState({ showForm: false, postToEdit: undefined });
+
+  handleShowEditForm = postToEdit => this.setState({ postToEdit, showForm: true });
 
   renderPosts = () => {
     // const { postsData } = this.props;
@@ -62,20 +66,17 @@ class Posts extends Component {
     const postsComponent = this.state.posts.map(post => (
       <Post
         key={post.get('_id')}
-        id={post.get('_id')}
-        title={post.get('title')}
-        body={post.get('body')}
+        post={post}
+        showEditForm={this.handleShowEditForm}
         deletePost={this.deletePost}
       />
     ));
 
-    console.log(postsComponent);
     return postsComponent;
   }
 
   render() {
     const { postsData } = this.props;
-    console.log('postsLoading', postsData.get('postsLoading'));
 
     return (
       <Fragment>
@@ -88,6 +89,7 @@ class Posts extends Component {
               createPost={this.createPost}
               handleClose={this.handleCloseForm}
               showForm={this.state.showForm}
+              postToEdit={this.state.postToEdit}
             />
             <PostsContainer>
               {this.renderPosts()}
