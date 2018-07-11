@@ -4,7 +4,8 @@
   // We use 'babel-eslint' mainly for React Native Classes
   "parser": "babel-eslint",
   "env": {
-    "browser": true
+    "browser": true,
+    "jest": true
   },
   "parserOptions": {
     "ecmaFeatures": {

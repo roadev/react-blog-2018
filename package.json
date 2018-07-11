@@ -4,7 +4,7 @@
   "description": "React boilerplate: React + Immutable + ESLint + React Router + Lodash + React Toolbox",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "jest --verbose",
     "start": "webpack-dev-server --progress",
     "build": "npm run clean && NODE_ENV=production node_modules/.bin/webpack --config ./webpack.production.config.js --progress",
     "clean": "rm -rf build/*"
@@ -51,10 +51,12 @@
     "@material-ui/core": "^1.2.2",
     "@material-ui/icons": "^1.1.0",
     "apisauce": "^0.15.2",
+    "custom-immutable-matchers": "^2.0.0",
     "date-fns": "^1.29.0",
     "extract-text-webpack-plugin": "^3.0.2",
     "immutable": "^3.8.2",
     "isomorphic-fetch": "^2.2.1",
+    "jest-immutable-matchers": "^2.0.1",
     "prop-types": "^15.6.0",
     "react": "^16.4.1",
     "react-dom": "^16.4.1",
@@ -66,5 +68,8 @@
     "redux-thunk": "^2.3.0",
     "styled-components": "^3.3.2",
     "webpack": "^3.10.0"
+  },
+  "jest": {
+    "preset": "react"
   }
 }

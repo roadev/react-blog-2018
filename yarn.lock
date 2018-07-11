@@ -1669,6 +1669,10 @@ currently-unhandled@^0.4.1:
   dependencies:
     array-find-index "^1.0.1"
 
+custom-immutable-matchers@^2.0.0:
+  version "2.0.0"
+  resolved "https://registry.yarnpkg.com/custom-immutable-matchers/-/custom-immutable-matchers-2.0.0.tgz#468888d7b77ee1d73dba5793a5a593fae081c709"
+
 d@1:
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/d/-/d-1.0.0.tgz#754bb5bfe55451da69a58b94d45f4c5b0462d58f"
@@ -3214,6 +3218,10 @@ isomorphic-fetch@^2.1.1, isomorphic-fetch@^2.2.1:
 isstream@~0.1.2:
   version "0.1.2"
   resolved "https://registry.yarnpkg.com/isstream/-/isstream-0.1.2.tgz#47e63f7af55afa6f92e1500e690eb8b8529c099a"
+
+jest-immutable-matchers@^2.0.1:
+  version "2.0.1"
+  resolved "https://registry.yarnpkg.com/jest-immutable-matchers/-/jest-immutable-matchers-2.0.1.tgz#7c86ce0a0d50435eb87d72114f5b162fb7d2ce7e"
 
 js-tokens@^3.0.0, js-tokens@^3.0.2:
   version "3.0.2"
