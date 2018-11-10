@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-const Post = ({ id, title, body, deletePost }) => (
+const Employee = ({ id, title, body, deletePost }) => (
   <div>
     <h1>{title}</h1>
     <p>{body}</p>
@@ -9,13 +9,13 @@ const Post = ({ id, title, body, deletePost }) => (
   </div>
 );
 
-Post.propTypes = {
+Employee.propTypes = {
   title: PropTypes.string.isRequired,
   body: PropTypes.string,
 };
 
-Post.defaultProps = {
+Employee.defaultProps = {
   body: 'This post has no content',
 };
 
-export default Post;
+export default Employee;

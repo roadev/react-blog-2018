@@ -5,20 +5,28 @@ import Button from '@material-ui/core/Button';
 
 import { HeaderContainer, StyledTypography } from './styles';
 
-const Header = () => (
+const Employees = () => (
   <HeaderContainer>
     <AppBar position="static" color="primary">
       <Toolbar>
         <StyledTypography variant="title" color="inherit">
-            DevhackBlog
+          DevhackBlog
         </StyledTypography>
-        <Button href="/" color="inherit">Home</Button>
-        <Button href="/posts" color="inherit">Posts</Button>
-        <Button href="/tags" color="inherit">Tags</Button>
-        <Button href="/contact" color="inherit">Contact</Button>
+        <Button href="/" color="inherit">
+          Home
+        </Button>
+        <Button href="/employees" color="inherit">
+          Employees
+        </Button>
+        <Button href="/tags" color="inherit">
+          Tags
+        </Button>
+        <Button href="/contact" color="inherit">
+          Contact
+        </Button>
       </Toolbar>
     </AppBar>
   </HeaderContainer>
 );
 
-export default Header;
+export default Employees;
